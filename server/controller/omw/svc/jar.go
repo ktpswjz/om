@@ -209,7 +209,7 @@ func (s *Jar) Upload(w http.ResponseWriter, r *http.Request, p router.Params, a 
 			a.Error(errors.InternalError, err)
 			return
 		}
-		//err = svcCtrl.Install()
+		err = svcCtrl.Install()
 		if err != nil {
 			os.RemoveAll(targetFolder)
 			a.Error(errors.InternalError, fmt.Sprintf("安装服务%s失败:", svcCfg.Name), err)
@@ -217,7 +217,7 @@ func (s *Jar) Upload(w http.ResponseWriter, r *http.Request, p router.Params, a 
 		}
 	}
 
-	//err = svcCtrl.Start()
+	err = svcCtrl.Start()
 	if err != nil {
 		s.LogError(fmt.Sprintf("启动服务%s失败:", svcCfg.Name), err)
 	}
