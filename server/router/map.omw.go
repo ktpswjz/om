@@ -20,6 +20,7 @@ type omwController struct {
 	svcOmw       *svc.Omw
 	svcOther     *svc.Other
 	svcTomcat    *svc.Tomcat
+	svcJar       *svc.Jar
 }
 
 func (s *innerRouter) mapOmwApi(path types.Path, router *router.Router) {
@@ -31,6 +32,7 @@ func (s *innerRouter) mapOmwApi(path types.Path, router *router.Router) {
 	s.svcOmw = svc.NewOmw(s.GetLog(), s.cfg, s.omwToken, s.notifyChannels)
 	s.svcOther = svc.NewOther(s.GetLog(), s.cfg, s.omwToken, s.notifyChannels)
 	s.svcTomcat = svc.NewTomcat(s.GetLog(), s.cfg, s.omwToken, s.notifyChannels)
+	s.svcJar = svc.NewJar(s.GetLog(), s.cfg, s.omwToken, s.notifyChannels)
 
 	// 注销登陆
 	router.POST(path.Path("/logout"), s.omwAuth.Logout, s.omwAuth.LogoutDoc)
@@ -52,6 +54,13 @@ func (s *innerRouter) mapOmwApi(path types.Path, router *router.Router) {
 	router.POST(path.Path("/svc/tomcat/app/list"), s.svcTomcat.SearchAppList, s.svcTomcat.SearchAppListDoc)
 	router.POST(path.Path("/svc/tomcat/app/upload"), s.svcTomcat.UploadApp, s.svcTomcat.UploadAppDoc)
 	router.POST(path.Path("/svc/tomcat/app/delete"), s.svcTomcat.DeleteApp, s.svcTomcat.DeleteAppDoc)
+
+	// jar
+	router.POST(path.Path("/svc/jar/cfg"), s.svcJar.GetConfig, s.svcJar.GetConfigDoc)
+	router.POST(path.Path("/svc/jar/upload"), s.svcJar.Upload, s.svcJar.UploadDoc)
+	router.POST(path.Path("/svc/jar/list"), s.svcJar.SearchList, s.svcJar.SearchListDoc)
+	router.POST(path.Path("/svc/jar/info"), s.svcJar.SearchInfo, s.svcJar.SearchInfoDoc)
+	router.POST(path.Path("/svc/jar/uninstall"), s.svcJar.Uninstall, s.svcJar.UninstallDoc)
 
 	// 其它服务
 	router.POST(path.Path("/svc/status"), s.svcOther.GetStatus, s.svcOther.GetStatusDoc)

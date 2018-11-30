@@ -69,6 +69,9 @@ func (s *tcp) initialize(cfg *config.Proxy) {
 			target:  fmt.Sprintf("%s:%s", target.IP, target.Port),
 			version: target.Version,
 		}
+		if cfg.Http.Port != "80" {
+			info.domain = fmt.Sprintf("%s:%s", target.Domain, cfg.Http.Port)
+		}
 		s.http = append(s.http, info)
 	}
 	for i := 0; i < httpsCount; i++ {

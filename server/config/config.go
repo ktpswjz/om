@@ -98,6 +98,10 @@ func NewConfig() *Config {
 		Service: Service{
 			Tomcats: make(ServiceTomcatCollection, 0),
 			Others:  make(ServiceOtherCollection, 0),
+			Jar: ServiceJar{
+				Root:   "",
+				Prefix: "jar-",
+			},
 		},
 	}
 }

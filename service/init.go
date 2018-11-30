@@ -16,7 +16,7 @@ const (
 	moduleType    = "server"
 	moduleName    = "om"
 	moduleRemark  = "服务器管理"
-	moduleVersion = "1.0.1.1"
+	moduleVersion = "1.0.1.2"
 )
 
 var (
@@ -141,6 +141,9 @@ func init() {
 			certFilePath = filepath.Join(rootFolder, "crt", "server.pfx")
 			cfg.Server.Https.Cert.File = certFilePath
 		}
+	}
+	if cfg.Service.Jar.Root == "" {
+		cfg.Service.Jar.Root = filepath.Join(rootFolder, "svc", "jar")
 	}
 
 	zoneName, zoneOffset := time.Now().Local().Zone()
