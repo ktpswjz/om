@@ -16,7 +16,7 @@ const (
 	moduleType    = "server"
 	moduleName    = "om"
 	moduleRemark  = "服务器管理"
-	moduleVersion = "1.0.1.2"
+	moduleVersion = "1.0.1.3"
 )
 
 var (

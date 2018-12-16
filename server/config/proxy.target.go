@@ -6,6 +6,7 @@ type ProxyTarget struct {
 	IP      string `json:"ip" note:"目标地址"`
 	Port    string `json:"port" note:"目标端口"`
 	Version int    `json:"version" note:"版本号，0或1，0-不添加头部；1-添加代理头部（PROXY family srcIP srcPort targetIP targetPort）"`
+	Disable bool   `json:"disable" note:"已禁用"`
 }
 
 func (s *ProxyTarget) CopyFrom(source *ProxyTarget) {
@@ -17,4 +18,5 @@ func (s *ProxyTarget) CopyFrom(source *ProxyTarget) {
 	s.IP = source.IP
 	s.Port = source.Port
 	s.Version = source.Version
+	s.Disable = source.Disable
 }

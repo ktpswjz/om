@@ -63,6 +63,9 @@ func (s *tcp) initialize(cfg *config.Proxy) {
 
 	for i := 0; i < httpCount; i++ {
 		target := cfg.Http.Targets[i]
+		if target.Disable {
+			continue
+		}
 		info := proxyInfo{
 			addr:    httpAddr,
 			domain:  target.Domain,
@@ -76,6 +79,9 @@ func (s *tcp) initialize(cfg *config.Proxy) {
 	}
 	for i := 0; i < httpsCount; i++ {
 		target := cfg.Https.Targets[i]
+		if target.Disable {
+			continue
+		}
 		info := proxyInfo{
 			addr:    httpsAddr,
 			domain:  target.Domain,
