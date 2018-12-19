@@ -75,11 +75,17 @@ func (s *innerRouter) PreRouting(w http.ResponseWriter, r *http.Request, a route
 	}
 
 	// default to omw site
-	if "/" == r.URL.Path || "" == r.URL.Path {
+	if "/" == r.URL.Path || "" == r.URL.Path || omwSite.web == r.URL.Path {
 		//r.URL.Path = fmt.Sprint(omwSite.web, "/")
 		redirectUrl := fmt.Sprintf("%s://%s%s/", a.Schema(), r.Host, omwSite.web)
 		http.Redirect(w, r, redirectUrl, http.StatusMovedPermanently)
 		return true
+	} else if r.Method == "GET" {
+		if r.URL.Path == docSite.web {
+			redirectUrl := fmt.Sprintf("%s://%s%s/", a.Schema(), r.Host, docSite.web)
+			http.Redirect(w, r, redirectUrl, http.StatusMovedPermanently)
+			return true
+		}
 	}
 
 	return false
