@@ -41,6 +41,7 @@ func (s *innerRouter) mapOmwApi(path types.Path, router *router.Router) {
 	// 系统信息
 	router.POST(path.Path("/sys/host/info"), s.sysHost.GetHost, s.sysHost.GetHostDoc)
 	router.POST(path.Path("/sys/network/interface/list"), s.sysNetwork.GetInterfaces, s.sysNetwork.GetInterfacesDoc)
+	router.POST(path.Path("/sys/network/listen/port/list"), s.sysNetwork.GetListenPorts, s.sysNetwork.GetListenPortsDoc)
 
 	// 后台服务
 	router.POST(path.Path("/svc/omw/info"), s.svcOmw.GetInfo, s.svcOmw.GetInfoDoc)

@@ -61,3 +61,31 @@ func (s *Network) GetInterfacesDoc(a document.Assistant) document.Function {
 
 	return function
 }
+
+func (s *Network) GetListenPorts(w http.ResponseWriter, r *http.Request, p router.Params, a router.Assistant) {
+	data := network.ListeningPorts()
+
+	a.Success(data)
+}
+
+func (s *Network) GetListenPortsDoc(a document.Assistant) document.Function {
+	function := a.CreateFunction("获取监听端口")
+	function.SetNote("获取主机正在监听端口信息")
+	function.SetOutputExample([]network.Listen{
+		{
+			Address:  "127.0.0.1",
+			Port:     163,
+			Protocol: "tcp",
+		},
+		{
+			Address:  "*",
+			Port:     22,
+			Protocol: "tcp",
+		},
+	})
+	function.SetContentType("")
+
+	s.setDocFun(a, function)
+
+	return function
+}

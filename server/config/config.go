@@ -76,8 +76,9 @@ func NewConfig() *Config {
 				Setting: SiteOmwSetting{
 					MenuVisible: true,
 					Dashboard: SiteOmwSettingDashboard{
-						TomcatVisible: true,
-						ProxyVisible:  true,
+						TomcatVisible:     true,
+						ProxyVisible:      true,
+						ListenPortVisible: true,
 					},
 				},
 			},
