@@ -202,7 +202,9 @@ func (s *Jar) Upload(w http.ResponseWriter, r *http.Request, p router.Params, a 
 
 	if newSvc {
 		svcCfg.DisplayName = svcName
-		svcCfg.Executable = exePath
+		svcCfg.Description = svcName
+		svcCfg.Executable = s.ExePath(exePath)
+		svcCfg.Arguments = s.ExeArguments(exePath)
 		svcCtrl, err = service.New(nil, svcCfg)
 		if err != nil {
 			os.RemoveAll(targetFolder)
